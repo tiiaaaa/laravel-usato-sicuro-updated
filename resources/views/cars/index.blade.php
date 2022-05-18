@@ -11,6 +11,7 @@
         Lista auto
     </h1>
     <a href="{{route("home")}}">Torna alla Home</a>
+    <a href="{{route("cars.create")}}">Aggiungi Auto</a>
     @foreach ($cars as $car)
     <div>
         <h3>
