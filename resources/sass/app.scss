@@ -1,1 +1,89 @@
-//
+@import 'partials/variables';
+@import 'partials/common';
+@import '~bootstrap/scss/bootstrap';
+
+body {
+	section#home-hero,
+	section#car-detail,
+	section#add-form {
+		height: 86vh;
+	}
+}
+
+header {
+	top: 0;
+	height: 7vh;
+	font-family: 'Audiowide', cursive;
+	h3 {
+		color: $fontColor;
+	}
+}
+
+section#home-hero {
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: sepia(45%);
+		object-position: center;
+	}
+	h1 {
+		top: 85%;
+		right: 50%;
+		font-size: 5rem;
+		font-weight: bold;
+		font-family: 'Poiret One', cursive;
+	}
+	a.btn {
+		top: 87%;
+		right: 20%;
+		font-size: 2rem;
+		animation: bounce 1s infinite;
+		animation-direction: alternate;
+		text-transform: uppercase;
+	}
+}
+
+div.card {
+	color: $lightFontColor;
+	background: rgba(255, 255, 255, 0);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	p {
+		padding: 0;
+	}
+}
+
+section#cars,
+section#car-detail {
+	background: linear-gradient(rgba(58, 58, 58, 0.5),
+	rgba(48, 48, 48, 0.5)),
+	url('/img/index.jpg') center / cover;
+}
+
+section#add-form {
+	color: $fontColor;
+	background-color: $formBgColor;
+	label {
+		font-weight: bold;
+	}
+}
+
+footer {
+	span:first-of-type {
+		&:after {
+			content: '\2665';
+			margin-left: 0.25rem;
+		}
+	}
+	span:last-of-type {
+		&:after {
+			content: '\00A9';
+			vertical-align: text-bottom;
+			font-size: 0.95rem;
+		}
+	}
+}
