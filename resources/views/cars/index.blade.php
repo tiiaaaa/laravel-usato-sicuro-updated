@@ -19,31 +19,41 @@
                     @if (session('message'))
                         <div class="alert alert-success">{{session('message')}}</div>
                     @endif
-                    <a class="btn btn-danger" href="{{route("cars.create")}}" role="button">+</a>
+
+                    <a class="btn btn-outline-light" href="{{route("cars.create")}}" role="button">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
                 </div>
                 <div class="col-9">
-    
+                    
                     @foreach ($cars as $car)
-    
-                    <div class="card mb-3">
-                        <div class="card-body">
-                        <h5 class="card-title">{{ ucfirst($car->marca) }} - {{ ucfirst($car->model)}}</h5>
-                        <p class="card-text">
-                            Immatricolazione: {{ date("Y", strtotime($car->data_immatricolazione)) }} 
-                            | Porte: {{$car->porte}} | {{ ($car->is_new) ? 'Nuova' : 'Usata'}}
-                        </p>
+                    <div class="card mb-3 flex-row justify-content-between">
+                        <div class="w-25">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ ucfirst($car->marca) }} - {{ ucfirst($car->model)}}</h5>
+                                <p class="card-text">
+                                    Immatricolazione: {{ date("Y", strtotime($car->data_immatricolazione)) }} 
+                                    | Porte: {{$car->porte}} | {{ ($car->is_new) ? 'Nuova' : 'Usata'}}
+                                </p>
+                            </div>
+                        </div>
                         
-                        <div class="d-flex justify-content-between g-3 align-items-center">
+                        <div class="w-25 d-flex justify-content-end align-items-center me-2">
+                            <a href="{{route("cars.show", $car->id)}}" class="btn btn-outline-light">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
                             <form action="{{route('cars.destroy', $car->id )}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"class="btn btn-danger my-3">Delete</button>
+                                <button type="submit"class="btn btn-outline-danger mx-1">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
                             </form>
-                            <a href="{{route("cars.show", $car->id)}}" class="btn btn-outline-light mx-2">Info</a>
-                            <a href="{{ route("cars.edit", $car->id) }}" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">Edit</a>
+                            <a href="{{ route("cars.edit", $car->id) }}" class="btn btn-outline-warning" tabindex="-1" role="button" aria-disabled="true">
+                                <i class="fa-solid fa-pencil"></i>
+                            </a>
                         </div>     
-
-                        </div>
+                        
                     </div>
                     
                     @endforeach
