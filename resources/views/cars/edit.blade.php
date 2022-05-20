@@ -1,6 +1,6 @@
 @extends('layouts.app')
- 
- @section('title', 'Add Car')
+
+@section('title', 'Edit Car')
 
 @section('content')
 
@@ -12,12 +12,15 @@
 		</div>
 	</div>
 
-    <form class="row row-cols-4 g-3 flex-column align-items-center" action="{{route("cars.store")}}" method="POST">
+    <form class="row row-cols-4 g-3 flex-column align-items-center" action="{{ route("cars.update", $car )}}" method="POST">
         @csrf
+				@method('PUT')
+
         <div class="col">
             <h2>
                 Creazione nuova auto
             </h2>
+            
             @if ( $errors->any() )
             <ul class="alert alert-danger">
                 @foreach ( $errors->all() as $error)
@@ -28,31 +31,31 @@
         </div>
         <div class="col">
             <label for="numero_telaio">Numero di telaio</label>
-            <input type="text" name="numero_telaio" id="numero_telaio" class="form-control">
+            <input type="text" name="numero_telaio" id="numero_telaio" class="form-control" value="{{$car->numero_telaio}}">
 		</div>
         <div class="col">
             <label for="model">Modello</label>
-            <input type="text" name="model" id="model" class="form-control">
+            <input type="text" name="model" id="model" class="form-control" value="{{$car->model}}">
         </div>
         <div class="col">
             <label for="porte">Porte</label>
-            <input type="text" name="porte" id="porte" class="form-control">
+            <input type="text" name="porte" id="porte" class="form-control" value="{{$car->porte}}">
         </div>
         <div class="col">
             <label for="data_immatricolazione">Immatricolazione</label>
-            <input type="date" name="data_immatricolazione" id="data_immatricolazione" class="form-control">
+            <input type="text" name="data_immatricolazione" id="data_immatricolazione" class="form-control" value="{{$car->data_immatricolazione}}">
         </div>
         <div class="col">
             <label for="marca">Marca</label>
-            <input type="text" name="marca" id="marca" class="form-control">
+            <input type="text" name="marca" id="marca" class="form-control" value="{{$car->marca}}">
         </div>
         <div class="col">
             <label for="alimentazione">Alimentazione</label>
-            <input type="text" name="alimentazione" id="alimentazione" class="form-control"> 
+            <input type="text" name="alimentazione" id="alimentazione" class="form-control" value="{{$car->alimentazione}}"> 
         </div>
         <div class="col">
             <label for="prezzo">Prezzo</label>
-            <input type="text" name="prezzo" id="prezzo" class="form-control">
+            <input type="text" name="prezzo" id="prezzo" class="form-control" value="{{$car->prezzo}}">
         </div>
 
         <div class="col text-center">

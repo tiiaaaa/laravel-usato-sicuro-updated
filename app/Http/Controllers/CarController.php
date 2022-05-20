@@ -36,18 +36,26 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {   
-        $data = $request->all();
-        $car = new Car();
-            $car->numero_telaio= $data["numero_telaio"];
-            $car->model=$data["model"]; 
-            $car->porte=$data["porte"];
-            $car->data_immatricolazione=$data["data_immatricolazione"];
-            $car->marca=$data["marca"];
-            $car->alimentazione=$data["alimentazione"];
-            $car->prezzo=$data["prezzo"];
-            $car->save();
+        
+        $request->validate([
+            'numero_telaio' => 'unique:cars,numero_telaio,id|required|max:20',
+            'model' => 'required|max:20',
+            'porte' => 'required|max:5|numeric',
+            'data_immatricolazione' => 'required',
+            'marca' => 'required|max:20',
+            'alimentazione' => 'required',
+            'prezzo' => 'required|numeric',
+        ]);
 
-            return redirect()->route("cars.show", $car->id);
+        $data = $request->all();
+
+        $car = new Car();
+
+        $car->fill($data);
+        
+        $car->save();
+
+        return redirect()->route("cars.show", $car->id)->with('message', 'Car created correctly');
     }
 
     /**
@@ -68,9 +76,9 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Car $car)
     {
-        //
+        return view('cars.edit', compact('car'));
     }
 
     /**
@@ -80,9 +88,27 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Car $car)
     {
-        //
+        
+
+        $request->validate([
+
+            'numero_telaio' => 'unique:cars,numero_telaio,id|required|max:20',
+            'model' => 'required|max:20',
+            'porte' => 'required|max:5|numeric',
+            'data_immatricolazione' => 'required',
+            'marca' => 'required|max:20',
+            'alimentazione' => 'required',
+            'prezzo' => 'required|numeric',
+        ]);
+
+        $data = $request->all();
+
+        $car->update($data);
+
+        return redirect()->route('cars.show', $car->id )->with('message', 'Car updated correctly') ;
+        
     }
 
     /**
@@ -91,8 +117,9 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Car $car)
     {
-        //
+        $car->delete();
+        return redirect()->route('cars.index')->with('message', 'Car deleted correctly') ;
     }
 }
